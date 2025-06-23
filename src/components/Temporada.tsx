@@ -1,22 +1,27 @@
 import styles from "../styles/Temporada.module.css";
 import apiCall from "../utils/apiFunctions";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
-import { Link } from "react-router";
+import { useParams, Link } from "react-router";
+import TarjetaActuacio from "./TarjetaActuacio";
 
-type Castell = { nom: string; resultat: string };
+type Castell = {
+  nom: string;
+  resultat: string;
+  id: number;
+  actuacioId: number;
+};
 
-type Actuacions =
-  | undefined
-  | {
-      id: number;
-      data: string;
-      nom: string;
-      dataHora: Date | null;
-      ciutat: string;
-      ciutatLloc: string | null;
-      Castells: Castell[];
-    }[];
+type Actuacio = {
+  id: number;
+  data: string;
+  nom: string;
+  dataHora: Date | null;
+  ciutat: string;
+  ciutatLloc: string | null;
+  castells: Castell[];
+};
+
+type Actuacions = undefined | Actuacio[];
 
 function Temporada() {
   const year = useParams().season;
@@ -35,24 +40,19 @@ function Temporada() {
   }, [year]);
 
   return (
-    <div className={styles.main}>
-      <div className={styles.header}>
-        <div className={styles.title}>Temporada {year}</div>
-        <div className={styles.backButton}>
-          <Link to={"/"}>Tornar</Link>
-        </div>
-      </div>
-      {actuacions &&
-        actuacions.map((a, i) => (
-          <div className={styles.actuacio} key={i}>
-            <div>
-              {new Intl.DateTimeFormat("en-GB").format(new Date(a.data))}
-            </div>
-            <div className={styles.nomDiada}>{a.nom}</div>
-            <div>{a.ciutat}</div>
+    actuacions && (
+      <div className={styles.main}>
+        <div className={styles.header}>
+          <div className={styles.title}>Temporada {year}</div>
+          <div className={styles.backButton}>
+            <Link to={"/"}>Tornar</Link>
           </div>
+        </div>
+        {actuacions.map((a) => (
+          <TarjetaActuacio actuacio={a} />
         ))}
-    </div>
+      </div>
+    )
   );
 }
 

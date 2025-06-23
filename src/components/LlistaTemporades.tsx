@@ -20,17 +20,18 @@ function LlistaTemporades() {
   }, []);
 
   return (
-    <div className={styles.main}>
-      <div className={styles.header}>Temporades</div>
-      {temporades &&
-        temporades.map((t, i) => (
+    temporades && (
+      <div className={styles.main}>
+        <div className={styles.header}>Temporades</div>
+        {temporades.map((t, i) => (
           <div key={i}>
             <Link to={"/" + t} className={styles.temporada}>
               {t}
             </Link>
           </div>
         ))}
-    </div>
+      </div>
+    )
   );
 }
 

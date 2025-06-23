@@ -1,0 +1,35 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid gray;
+  gap: 0.5rem;
+}
+.nomDiada {
+  text-align: start;
+  font-size: 1.5rem;
+}
+.backButton {
+  font-size: min(4vw, 20px);
+}
+
+.icon {
+  vertical-align: bottom;
+  margin-right: 5px;
+}
+
+.diaIlloc {
+  display: flex;
+  gap: 1rem;
+}
+
+.castells {
+  display: flex;
+  flex-direction: column;
+}
+
+.castell {
+  text-align: left;
+}
