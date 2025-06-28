@@ -1,4 +1,4 @@
-import styles from "../styles/TarjetaActuacio.module.css";
+import styles from "../styles/ActuacioResum.module.css";
 //import { useParams, Link } from "react-router";
 import Icon from "@mdi/react";
 import { mdiCalendar, mdiMapMarker } from "@mdi/js";
@@ -24,7 +24,7 @@ type ActuacioProps = {
   actuacio: Actuacio;
 };
 
-function TarjetaActuacio({ actuacio }: ActuacioProps) {
+function ActuacioResum({ actuacio }: ActuacioProps) {
   return (
     <div className={styles.main}>
       <div className={styles.nomDiada}>{actuacio.nom}</div>
@@ -50,4 +50,4 @@ function TarjetaActuacio({ actuacio }: ActuacioProps) {
   );
 }
 
-export default TarjetaActuacio;
+export default ActuacioResum;

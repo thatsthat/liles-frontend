@@ -30,10 +30,17 @@
 }
 .backButton {
   font-size: min(4vw, 20px);
+  display: flex;
+  align-items: center;
 }
 
 @media (prefers-color-scheme: light) {
   .header {
     background-color: #ffffff;
   }
+}
+
+.link,
+.link:hover {
+  color: inherit;
 }
