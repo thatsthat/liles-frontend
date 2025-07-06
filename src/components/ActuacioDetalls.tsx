@@ -46,23 +46,25 @@ function ActuacioDetalls() {
           Tornar
         </Link>
         <div className={styles.nomDiada}>{actuacio.nom}</div>
-        <div className={styles.diaIlloc}>
-          <div>
-            <Icon className={styles.icon} path={mdiCalendar} size={1} />
-            {new Intl.DateTimeFormat("en-GB").format(new Date(actuacio.data))}
-          </div>
-          <div>
-            <Icon className={styles.icon} path={mdiMapMarker} size={1} />
-            {actuacio.ciutat}
-          </div>
-        </div>
-        <div className={styles.castells}>
-          {actuacio.castells.map((c, i) => (
-            <div className={styles.castell} key={i}>
-              {c.nom}
-              {": " + c.resultat}
+        <div className={styles.contingut}>
+          <div className={styles.diaIlloc}>
+            <div>
+              <Icon className={styles.icon} path={mdiCalendar} size={1} />
+              {new Intl.DateTimeFormat("en-GB").format(new Date(actuacio.data))}
             </div>
-          ))}
+            <div>
+              <Icon className={styles.icon} path={mdiMapMarker} size={1} />
+              {actuacio.ciutat}
+            </div>
+          </div>
+          <div className={styles.castells}>
+            {actuacio.castells.map((c, i) => (
+              <div className={styles.castell} key={i}>
+                {c.nom}
+                {": " + c.resultat}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     )
