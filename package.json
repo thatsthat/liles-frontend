@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "VITE_API_URL=http://localhost:3000 vite",
+    "dev": "VITE_API_URL=https://sturdy-sniffle-6v9rx7x9gwhrv94-3000.app.github.dev vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

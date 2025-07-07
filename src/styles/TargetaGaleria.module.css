@@ -2,10 +2,11 @@
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
+  width: 150px;
 }
-.nomDiada {
+.titol {
   text-align: start;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 .backButton {
   font-size: min(4vw, 20px);
@@ -16,22 +17,10 @@
   margin-right: 5px;
 }
 
-.diaIlloc {
-  display: flex;
-  gap: 1rem;
-}
-
-.castells {
-  display: flex;
-  flex-direction: column;
-}
-
-.castell {
-  text-align: left;
-}
-
 img {
-  width: 5rem;
+  width: 100%;
+  height: 100;
+  object-fit: cover;
 }
 
 .imatge {

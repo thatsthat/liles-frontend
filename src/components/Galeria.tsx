@@ -3,7 +3,7 @@ import apiCall from "../utils/apiFunctions";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
 import Icon from "@mdi/react";
-import { mdiUndo } from "@mdi/js";
+import { mdiDeathlyHallows, mdiUndo } from "@mdi/js";
 import escut from "../assets/escut.png";
 
 import TargetaGaleria from "./TargetaGaleria";
@@ -35,7 +35,7 @@ function Galeria() {
   const [data, setData] = useState<dataType>();
   const imgPath = escut;
 
-  const title = id ? "Temporada " + id : "Temporades";
+  const title = id ? "Temporada " + data.year : "Temporades";
 
   const fetchData = async (id: string) => {
     const dades = await apiCall("get", "/temporada/" + id);
@@ -43,48 +43,45 @@ function Galeria() {
   };
 
   useEffect(() => {
-    console.log("fuet del bo!");
     if (id) fetchData(id);
     else fetchData("");
   }, [id]);
 
   return (
-    data && (
-      <div className={styles.main}>
-        <div className={styles.header}>
-          <div className={styles.title}>{title}</div>
-          {id && (
-            <Link to={"/"} className={styles.backButton}>
-              <Icon className={styles.icon} path={mdiUndo} size={1} />
-              Tornar
-            </Link>
-          )}
-        </div>
-        <div className={styles.content}>
-          {id
-            ? data.actuacions &&
-              data.actuacions.map((actuacio: Actuacio, i: number) => (
-                <TargetaGaleria
-                  imagePath={imgPath}
-                  url={"/actuacio/" + actuacio.id}
-                  titol={actuacio.nom}
-                  subTitol={""}
-                  key={i}
-                />
-              ))
-            : Array.isArray(data) &&
-              data.map((temporada: Temporada, i: number) => (
-                <TargetaGaleria
-                  imagePath={imgPath}
-                  url={"/temporada/" + temporada.id}
-                  titol={"Temporada " + temporada.year}
-                  subTitol={""}
-                  key={i}
-                />
-              ))}
-        </div>
+    <div className={styles.main}>
+      <div className={styles.header}>
+        <div className={styles.title}>{title}</div>
+        {id && (
+          <Link to={"/"} className={styles.backButton}>
+            <Icon className={styles.icon} path={mdiUndo} size={1} />
+            Tornar
+          </Link>
+        )}
       </div>
-    )
+      <div className={styles.content}>
+        {id
+          ? data.actuacions &&
+            data.actuacions.map((actuacio: Actuacio, i: number) => (
+              <TargetaGaleria
+                imagePath={imgPath}
+                url={"/actuacio/" + actuacio.id}
+                titol={actuacio.nom}
+                subTitol={""}
+                key={i}
+              />
+            ))
+          : Array.isArray(data) &&
+            data.map((temporada: Temporada, i: number) => (
+              <TargetaGaleria
+                imagePath={imgPath}
+                url={"/temporada/" + temporada.id}
+                titol={"Temporada " + temporada.year}
+                subTitol={""}
+                key={i}
+              />
+            ))}
+      </div>
+    </div>
   );
 }
 

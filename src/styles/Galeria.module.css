@@ -16,9 +16,9 @@
   gap: 1rem;
 }
 .content {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
 }
 
 .nomDiada {
