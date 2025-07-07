@@ -1,10 +1,6 @@
 .main {
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
-  padding: 0.5rem;
-  border-radius: 10px;
-  border: 1px solid gray;
   gap: 0.5rem;
 }
 .nomDiada {
@@ -32,4 +28,14 @@
 
 .castell {
   text-align: left;
+}
+
+img {
+  width: 5rem;
+}
+
+.imatge {
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid gray;
 }

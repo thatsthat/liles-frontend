@@ -1,0 +1,42 @@
+.title {
+  font-size: min(5.8vw, 40px);
+  margin-right: 2rem;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0px;
+  background-color: #242424;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.content {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.nomDiada {
+  text-align: start;
+}
+.backButton {
+  font-size: min(4vw, 20px);
+  display: flex;
+  align-items: center;
+}
+
+@media (prefers-color-scheme: light) {
+  .header {
+    background-color: #ffffff;
+  }
+}
+
+.link,
+.link:hover {
+  color: inherit;
+}
