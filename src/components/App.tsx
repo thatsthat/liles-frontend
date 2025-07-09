@@ -1,6 +1,5 @@
 import Galeria from "./Galeria";
-import Temporada from "./Temporada";
-import ActuacioDetalls from "./ActuacioDetalls";
+import Actuacio from "./Actuacio";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 function App() {
@@ -9,7 +8,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Galeria />} />
         <Route path="/temporada/:temporadaId?" element={<Galeria />} />
-        <Route path="/actuacio/:actuacioId" element={<ActuacioDetalls />} />
+        <Route path="/actuacio/:actuacioId" element={<Actuacio />} />
       </Routes>
     </BrowserRouter>
   );

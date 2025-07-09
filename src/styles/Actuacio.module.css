@@ -1,16 +1,20 @@
 .main {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   padding: 0.5rem;
-  border-radius: 10px;
-  border: 1px solid gray;
   gap: 0.5rem;
+  max-width: 700px;
 }
 .nomDiada {
   text-align: start;
   font-size: 1.5rem;
 }
+.contingut {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .backButton {
   font-size: min(4vw, 20px);
 }
@@ -20,16 +24,17 @@
   margin-right: 5px;
 }
 
-.diaIlloc {
-  display: flex;
-  gap: 1rem;
-}
-
-.castells {
-  display: flex;
-  flex-direction: column;
-}
-
-.castell {
+.resultatsColla {
   text-align: left;
+  margin: 0.5rem;
+}
+
+.resultats {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
 }

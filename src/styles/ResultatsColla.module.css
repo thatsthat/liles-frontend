@@ -1,0 +1,12 @@
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.castell {
+  text-align: left;
+}
+
+.nomColla {
+  font-size: 1.2rem;
+}

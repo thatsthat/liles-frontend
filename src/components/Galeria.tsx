@@ -3,7 +3,7 @@ import apiCall from "../utils/apiFunctions";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
 import Icon from "@mdi/react";
-import { mdiDeathlyHallows, mdiUndo } from "@mdi/js";
+import { mdiUndo } from "@mdi/js";
 import escut from "../assets/escut.png";
 
 import TargetaGaleria from "./TargetaGaleria";
@@ -35,8 +35,6 @@ function Galeria() {
   const [data, setData] = useState<dataType>();
   const imgPath = escut;
 
-  const title = id ? "Temporada " + data.year : "Temporades";
-
   const fetchData = async (id: string) => {
     const dades = await apiCall("get", "/temporada/" + id);
     setData(dades);
@@ -48,9 +46,9 @@ function Galeria() {
   }, [id]);
 
   return (
-    <div className={styles.main}>
+    data && (<div className={styles.main}>
       <div className={styles.header}>
-        <div className={styles.title}>{title}</div>
+        <div className={styles.title}>{id ? "Temporada " + data.year : "Temporades"}</div>
         {id && (
           <Link to={"/"} className={styles.backButton}>
             <Icon className={styles.icon} path={mdiUndo} size={1} />
@@ -81,7 +79,7 @@ function Galeria() {
               />
             ))}
       </div>
-    </div>
+    </div>)
   );
 }
 
