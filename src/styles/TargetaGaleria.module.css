@@ -24,11 +24,12 @@ img {
 }
 
 .imatge {
-  padding: 0.5rem;
+  padding: 0px;
   border-radius: 10px;
   border: 1px solid gray;
 }
 
-.titol, .titol:hover {
+.titol,
+.titol:hover {
   color: inherit;
 }
