@@ -36,10 +36,11 @@ type Actuacio = {
   nom: string;
   dataHora: Date | null;
   ciutat: Ciutat;
-  ciutatLloc: string | null;
+  lloc: string | null;
   castells: Castell[];
   temporadaId: number;
   colles: Colla[];
+  colles2: Colla[];
 };
 
 function Actuacio() {
@@ -47,7 +48,13 @@ function Actuacio() {
   const [actuacio, setActuacio] = useState<Actuacio>();
 
   const fetchActuacio = async (id: string) => {
-    const dadesActuacio: Actuacio = await apiCall("get", "/actuacio/" + id);
+    let dadesActuacio: Actuacio = await apiCall("get", "/actuacio/" + id);
+    // Posa Cornellà sempre com a primera colla als resultats
+    const cornella = dadesActuacio.colles.filter((colla) => colla.id === 17);
+    const altresColles = dadesActuacio.colles.filter(
+      (colla) => colla.id !== 17
+    );
+    dadesActuacio.colles2 = [...cornella, ...altresColles];
     setActuacio(dadesActuacio);
   };
 
@@ -70,7 +77,7 @@ function Actuacio() {
         <div className={styles.contingut}>
           <DetallsActuacio actuacio={actuacio} />
           <div className={styles.resultats}>
-            {actuacio.colles.map((colla) => (
+            {actuacio.colles2.map((colla) => (
               <div className={styles.resultatsColla} key={colla.id}>
                 <ResultatsColla
                   nomColla={colla.nom}

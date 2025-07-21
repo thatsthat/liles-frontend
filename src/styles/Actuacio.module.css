@@ -5,18 +5,10 @@
   gap: 0.5rem;
   max-width: 700px;
 }
-.nomDiada {
-  text-align: start;
-  font-size: 1.5rem;
-}
 .contingut {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.backButton {
-  font-size: min(4vw, 20px);
 }
 
 .icon {
@@ -27,14 +19,26 @@
 .resultatsColla {
   text-align: left;
   margin: 0.5rem;
+  margin-left: 0;
 }
 
 .resultats {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
+}
+
+.nomDiada {
+  text-align: start;
+  font-size: 1.5rem;
+  flex: 1 1 auto;
+}
+
+.backButton {
+  font-size: 20px;
+  flex: 1 0 auto;
 }

@@ -2,6 +2,7 @@ import styles from "../styles/Galeria.module.css";
 import apiCall from "../utils/apiFunctions";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
+import { userLoggedIn } from "../utils/userInfo";
 import Icon from "@mdi/react";
 import { mdiUndo } from "@mdi/js";
 import escut from "../assets/escut.png";
@@ -46,40 +47,46 @@ function Galeria() {
   }, [id]);
 
   return (
-    data && (<div className={styles.main}>
-      <div className={styles.header}>
-        <div className={styles.title}>{id ? "Temporada " + data.year : "Temporades"}</div>
-        {id && (
-          <Link to={"/"} className={styles.backButton}>
-            <Icon className={styles.icon} path={mdiUndo} size={1} />
-            Tornar
-          </Link>
-        )}
+    data && (
+      <div
+        className={`${styles.main} ${userLoggedIn() ? styles.placeHolder : {}}`}
+      >
+        <div className={styles.header}>
+          <div className={styles.title}>
+            {id ? "Temporada " + data.year : "Temporades"}
+          </div>
+          {id && (
+            <Link to={"/"} className={styles.backButton}>
+              <Icon className={styles.icon} path={mdiUndo} size={1} />
+              Tornar
+            </Link>
+          )}
+        </div>
+        <div className={styles.content}>
+          {id
+            ? data.actuacions &&
+              data.actuacions.map((actuacio: Actuacio, i: number) => (
+                <TargetaGaleria
+                  imagePath={imgPath}
+                  url={"/actuacio/" + actuacio.id}
+                  titol={actuacio.nom}
+                  subTitol={""}
+                  key={i}
+                />
+              ))
+            : Array.isArray(data) &&
+              data.map((temporada: Temporada, i: number) => (
+                <TargetaGaleria
+                  imagePath={imgPath}
+                  url={"/temporada/" + temporada.id}
+                  titol={"Temporada " + temporada.year}
+                  subTitol={""}
+                  key={i}
+                />
+              ))}
+        </div>
       </div>
-      <div className={styles.content}>
-        {id
-          ? data.actuacions &&
-            data.actuacions.map((actuacio: Actuacio, i: number) => (
-              <TargetaGaleria
-                imagePath={imgPath}
-                url={"/actuacio/" + actuacio.id}
-                titol={actuacio.nom}
-                subTitol={""}
-                key={i}
-              />
-            ))
-          : Array.isArray(data) &&
-            data.map((temporada: Temporada, i: number) => (
-              <TargetaGaleria
-                imagePath={imgPath}
-                url={"/temporada/" + temporada.id}
-                titol={"Temporada " + temporada.year}
-                subTitol={""}
-                key={i}
-              />
-            ))}
-      </div>
-    </div>)
+    )
   );
 }
 

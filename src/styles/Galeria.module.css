@@ -1,5 +1,5 @@
 .title {
-  font-size: min(5.8vw, 40px);
+  font-size: min(6.5vw, 40px);
   margin-right: 2rem;
 }
 .header {
@@ -9,20 +9,27 @@
   position: sticky;
   top: 0px;
   background-color: #242424;
+  padding: 10px;
 }
 .main {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
+
+.placeHolder {
+  margin-bottom: 80px;
+}
+
 .content {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  justify-content: center;
 }
 
 .backButton {
-  font-size: min(4vw, 20px);
+  font-size: 20px;
   display: flex;
   align-items: center;
 }

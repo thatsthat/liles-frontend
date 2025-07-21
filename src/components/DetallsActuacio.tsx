@@ -1,6 +1,6 @@
 import styles from "../styles/DetallsActuacio.module.css";
 import Icon from "@mdi/react";
-import { mdiCalendar, mdiMapMarker } from "@mdi/js";
+import { mdiCalendar, mdiMapMarker, mdiCity, mdiClock } from "@mdi/js";
 
 type Colla = {
   nom: string;
@@ -32,23 +32,35 @@ function DetallsActuacio({ actuacio }: PropsType) {
   return (
     <div className={styles.main}>
       <div className={styles.diaIlloc}>
-        <div>
-          <Icon className={styles.icon} path={mdiCalendar} size={1} />
-          {new Intl.DateTimeFormat("en-GB").format(new Date(actuacio.data))}
+        <div className={styles.temps}>
+          <div>
+            <Icon className={styles.icon} path={mdiCalendar} size={1} />
+            {new Intl.DateTimeFormat("en-GB").format(new Date(actuacio.data))}
+          </div>
+          <div>
+            {actuacio.dataHora && (
+              <Icon className={styles.icon} path={mdiClock} size={1} />
+            )}
+            {actuacio.dataHora &&
+              new Intl.DateTimeFormat("en-GB", {
+                hour: "numeric",
+                minute: "numeric",
+                timeZone: "UTC",
+              }).format(new Date(actuacio.dataHora))}
+          </div>
         </div>
-        <div>
-          {actuacio.dataHora &&
-            new Intl.DateTimeFormat("en-GB", {
-              hour: "numeric",
-              minute: "numeric",
-              timeZone: "UTC",
-            }).format(new Date(actuacio.dataHora))}
+        <div className={styles.geo}>
+          <div>
+            <Icon className={styles.icon} path={mdiCity} size={1} />
+            {actuacio.ciutat.nom}
+          </div>
+          <div>
+            {actuacio.lloc && (
+              <Icon className={styles.icon} path={mdiMapMarker} size={1} />
+            )}
+            {actuacio.lloc}
+          </div>
         </div>
-        <div>
-          <Icon className={styles.icon} path={mdiMapMarker} size={1} />
-          {actuacio.ciutat.nom}
-        </div>
-        <div>{actuacio.lloc}</div>
       </div>
     </div>
   );
