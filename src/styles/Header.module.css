@@ -1,0 +1,23 @@
+.main {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nomDiada {
+  text-align: start;
+  font-size: 1.5rem;
+  flex: 1 1 auto;
+}
+
+.icon {
+  vertical-align: bottom;
+  margin-right: 5px;
+}
+
+.backButton {
+  font-size: 20px;
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

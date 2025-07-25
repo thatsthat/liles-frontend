@@ -20,15 +20,19 @@ function ResultatsColla({ nomColla, castells }: PropsType) {
   return (
     <div className={styles.main}>
       <div className={styles.nomColla}>{nomColla + ": "} </div>
-      {castells.map((castell, i) => {
-        let suffix = "";
-        let prefix = "";
-        if (castell.resultat === "Intent") suffix = "(i)";
-        else if (castell.resultat === "Intent desmuntat") suffix = "(id)";
-        if (castell.resultat === "Carregat") suffix = "(c)";
-        if (i > 0) prefix = ", ";
-        return <>{prefix + castell.tipusCastell.nomCurt + suffix}</>;
-      })}
+      <div className={styles.resultsList}>
+        {castells.map((castell, i) => {
+          let suffix = "";
+          let prefix = "";
+          if (castell.resultat === "Intent") suffix = "(i)";
+          else if (castell.resultat === "Intent desmuntat") suffix = "(id)";
+          if (castell.resultat === "Carregat") suffix = "(c)";
+          if (i > 0) prefix = ", ";
+          return (
+            <div key={i}>{prefix + castell.tipusCastell.nomCurt + suffix}</div>
+          );
+        })}
+      </div>
     </div>
   );
 }

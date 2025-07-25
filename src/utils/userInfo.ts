@@ -1,4 +1,4 @@
-export function userLoggedIn(): boolean {
+export function loggedIn(): boolean {
   return Date.now() < localStorage.getItem("currentTokenExpires") * 1000;
 }
 

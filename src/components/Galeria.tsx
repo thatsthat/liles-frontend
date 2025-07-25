@@ -2,7 +2,7 @@ import styles from "../styles/Galeria.module.css";
 import apiCall from "../utils/apiFunctions";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
-import { userLoggedIn } from "../utils/userInfo";
+import { loggedIn } from "../utils/userInfo";
 import Icon from "@mdi/react";
 import { mdiUndo } from "@mdi/js";
 import escut from "../assets/escut.png";
@@ -48,9 +48,7 @@ function Galeria() {
 
   return (
     data && (
-      <div
-        className={`${styles.main} ${userLoggedIn() ? styles.placeHolder : {}}`}
-      >
+      <div className={`${styles.main} ${loggedIn() ? styles.placeHolder : {}}`}>
         <div className={styles.header}>
           <div className={styles.title}>
             {id ? "Temporada " + data.year : "Temporades"}

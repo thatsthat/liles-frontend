@@ -2,10 +2,15 @@ import styles from "../styles/Actuacio.module.css";
 import { useState, useEffect } from "react";
 import apiCall from "../utils/apiFunctions";
 import { useParams, Link } from "react-router";
-import Icon from "@mdi/react";
-import { mdiUndo, mdiCalendar, mdiMapMarker } from "@mdi/js";
 import DetallsActuacio from "./DetallsActuacio";
-import ResultatsColla from "./ResultatsColla";
+import Resultats from "./Resultats";
+import Header from "./Header";
+import Fotos from "./Fotos";
+import { loggedIn, userLogOut } from "../utils/userInfo";
+
+type Foto = {
+  url: string;
+};
 
 type Colla = {
   nom: string;
@@ -41,6 +46,7 @@ type Actuacio = {
   temporadaId: number;
   colles: Colla[];
   colles2: Colla[];
+  fotos: Foto[];
 };
 
 function Actuacio() {
@@ -49,7 +55,7 @@ function Actuacio() {
 
   const fetchActuacio = async (id: string) => {
     let dadesActuacio: Actuacio = await apiCall("get", "/actuacio/" + id);
-    // Posa Cornellà sempre com a primera colla als resultats
+    // Posa Cornellà primer a l'array de colles
     const cornella = dadesActuacio.colles.filter((colla) => colla.id === 17);
     const altresColles = dadesActuacio.colles.filter(
       (colla) => colla.id !== 17
@@ -61,34 +67,19 @@ function Actuacio() {
   useEffect(() => {
     if (id) fetchActuacio(id);
   }, [id]);
+
   return (
     actuacio && (
-      <div className={styles.main}>
-        <div className={styles.header}>
-          <div className={styles.nomDiada}>{actuacio.nom}</div>
-          <Link
-            to={"/temporada/" + actuacio.temporadaId}
-            className={styles.backButton}
-          >
-            <Icon className={styles.icon} path={mdiUndo} size={1} />
-            Tornar
+      <div className={`${styles.main} ${loggedIn() ? styles.placeHolder : {}}`}>
+        <Header nom={actuacio.nom} temporadaId={actuacio.temporadaId} />
+        <DetallsActuacio actuacio={actuacio} />
+        <Resultats castells={actuacio.castells} colles={actuacio.colles2} />
+        {loggedIn() && (
+          <Link to={"/fotoNova/" + actuacio.id} className={styles.button}>
+            Puja fotos
           </Link>
-        </div>
-        <div className={styles.contingut}>
-          <DetallsActuacio actuacio={actuacio} />
-          <div className={styles.resultats}>
-            {actuacio.colles2.map((colla) => (
-              <div className={styles.resultatsColla} key={colla.id}>
-                <ResultatsColla
-                  nomColla={colla.nom}
-                  castells={actuacio.castells.filter(
-                    (castell) => castell.collaId === colla.id
-                  )}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+        )}
+        <Fotos fotos={actuacio.fotos} />
       </div>
     )
   );
