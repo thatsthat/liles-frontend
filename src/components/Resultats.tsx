@@ -24,7 +24,7 @@ type PropsType = {
 function Resultats({ colles, castells }: PropsType) {
   return (
     <div className={styles.main}>
-      {colles.map((colla, i) => (
+      {colles.map((colla) => (
         <div className={styles.resultatsColla} key={colla.id}>
           <ResultatsColla
             nomColla={colla.nom}

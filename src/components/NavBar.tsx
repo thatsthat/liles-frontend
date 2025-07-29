@@ -4,15 +4,15 @@ import styles from "../styles/NavBar.module.css";
 import { loggedIn, userLogOut } from "../utils/userInfo";
 
 const NavBar = () => {
-  type PropsType = {
-    loggedIn: boolean;
+  const [trigger, setTrigger] = useState<number>(0);
+  const reRender = () => {
+    setTrigger((a) => a + 1);
   };
-
-  const navigate = useNavigate();
+  const nav = useNavigate();
 
   const logOut = () => {
     userLogOut();
-    navigate("/");
+    nav("/");
   };
 
   return (
@@ -25,7 +25,7 @@ const NavBar = () => {
           </div>
         </div>
       )}
-      <Outlet />
+      <Outlet context={[reRender, trigger]} />
     </>
   );
 };

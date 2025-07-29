@@ -23,13 +23,13 @@ function ResultatsColla({ nomColla, castells }: PropsType) {
       <div className={styles.resultsList}>
         {castells.map((castell, i) => {
           let suffix = "";
-          let prefix = "";
+          let comma = "";
           if (castell.resultat === "Intent") suffix = "(i)";
           else if (castell.resultat === "Intent desmuntat") suffix = "(id)";
           if (castell.resultat === "Carregat") suffix = "(c)";
-          if (i > 0) prefix = ", ";
+          if (i < castells.length - 1) comma = ", ";
           return (
-            <div key={i}>{prefix + castell.tipusCastell.nomCurt + suffix}</div>
+            <div key={i}>{castell.tipusCastell.nomCurt + suffix + comma}</div>
           );
         })}
       </div>

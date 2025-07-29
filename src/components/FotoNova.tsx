@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { useOutletContext, useNavigate, useParams } from "react-router";
 import styles from "../styles/FotoNova.module.css";
 import { loggedIn, userLogOut } from "../utils/userInfo";
 import { apiFormCall } from "../utils/apiFunctions";
@@ -7,7 +7,8 @@ import { apiFormCall } from "../utils/apiFunctions";
 const FotoNova = () => {
   const [errors, setErrors] = useState({});
   const actuacioId = useParams().actuacioId;
-  var navigate = useNavigate();
+  const navigate = useNavigate();
+  const [reRender, trigger] = useOutletContext();
   const upload = async (event) => {
     event.preventDefault();
     let validationErrors = {};
@@ -28,6 +29,9 @@ const FotoNova = () => {
       // Handle the successful form submission, e.g., sending formData to a server
       console.log(Array.from(formData.entries()));
       setErrors({}); // Clear any previous errors
+      // triger render of actuacio component
+      //reRender();
+      // go back to actuacio
       navigate("/actuacio/" + actuacioId);
     }
   };

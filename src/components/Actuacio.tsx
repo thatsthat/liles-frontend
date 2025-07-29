@@ -1,7 +1,7 @@
 import styles from "../styles/Actuacio.module.css";
 import { useState, useEffect } from "react";
 import apiCall from "../utils/apiFunctions";
-import { useParams, Link } from "react-router";
+import { useParams, useNavigate, useOutletContext, Link } from "react-router";
 import DetallsActuacio from "./DetallsActuacio";
 import Resultats from "./Resultats";
 import Header from "./Header";
@@ -52,6 +52,7 @@ type Actuacio = {
 function Actuacio() {
   const id = useParams().actuacioId;
   const [actuacio, setActuacio] = useState<Actuacio>();
+  const [reRender, trigger] = useOutletContext();
 
   const fetchActuacio = async (id: string) => {
     let dadesActuacio: Actuacio = await apiCall("get", "/actuacio/" + id);
@@ -65,6 +66,7 @@ function Actuacio() {
   };
 
   useEffect(() => {
+    console.log("actuacio useEffect");
     if (id) fetchActuacio(id);
   }, [id]);
 
