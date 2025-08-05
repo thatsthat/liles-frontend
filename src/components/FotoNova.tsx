@@ -21,13 +21,11 @@ const FotoNova = () => {
     const formData = new FormData(event.currentTarget);
     formData.append("collaId", 17);
     formData.append("actuacioId", actuacioId);
-    console.log(formData);
     const resp = await apiFormCall("/foto", formData);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
       // Handle the successful form submission, e.g., sending formData to a server
-      console.log(Array.from(formData.entries()));
       setErrors({}); // Clear any previous errors
       // triger render of actuacio component
       //reRender();
