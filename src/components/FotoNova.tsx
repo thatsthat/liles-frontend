@@ -25,11 +25,7 @@ const FotoNova = () => {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
-      // Handle the successful form submission, e.g., sending formData to a server
-      setErrors({}); // Clear any previous errors
-      // triger render of actuacio component
-      //reRender();
-      // go back to actuacio
+      setErrors({});
       navigate("/actuacio/" + actuacioId);
     }
   };

@@ -5,16 +5,15 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   position: sticky;
   top: 0px;
   background-color: #242424;
-  padding: 10px;
+  padding: 1rem;
 }
 .main {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
 }
 
 .placeHolder {
@@ -22,10 +21,21 @@
 }
 
 .content {
-  display: flex;
+  /*   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  justify-content: center;
+  justify-content: space-between; */
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  padding: 1rem;
+  width: 100%;
+  justify-items: center;
+}
+
+.contentWrapper {
+  display: flex;
+  justify-content: space-around;
 }
 
 .backButton {

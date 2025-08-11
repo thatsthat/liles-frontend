@@ -51,7 +51,7 @@ function Galeria() {
       <div className={`${styles.main} ${loggedIn() ? styles.placeHolder : {}}`}>
         <div className={styles.header}>
           <div className={styles.title}>
-            {id ? "Temporada " + data.year : "Temporades"}
+            {data.year ? "Temporada " + data.year : "Temporades"}
           </div>
           {id && (
             <Link to={"/"} className={styles.backButton}>
@@ -60,28 +60,30 @@ function Galeria() {
             </Link>
           )}
         </div>
-        <div className={styles.content}>
-          {id
-            ? data.actuacions &&
-              data.actuacions.map((actuacio: Actuacio, i: number) => (
-                <TargetaGaleria
-                  imagePath={imgPath}
-                  url={"/actuacio/" + actuacio.id}
-                  titol={actuacio.nom}
-                  subTitol={""}
-                  key={i}
-                />
-              ))
-            : Array.isArray(data) &&
-              data.map((temporada: Temporada, i: number) => (
-                <TargetaGaleria
-                  imagePath={imgPath}
-                  url={"/temporada/" + temporada.id}
-                  titol={"Temporada " + temporada.year}
-                  subTitol={""}
-                  key={i}
-                />
-              ))}
+        <div className={styles.contentWrapper}>
+          <div className={styles.content}>
+            {id
+              ? data.actuacions &&
+                data.actuacions.map((actuacio: Actuacio, i: number) => (
+                  <TargetaGaleria
+                    imagePath={imgPath}
+                    url={"/actuacio/" + actuacio.id}
+                    titol={actuacio.nom}
+                    subTitol={""}
+                    key={i}
+                  />
+                ))
+              : Array.isArray(data) &&
+                data.map((temporada: Temporada, i: number) => (
+                  <TargetaGaleria
+                    imagePath={imgPath}
+                    url={"/temporada/" + temporada.id}
+                    titol={"Temporada " + temporada.year}
+                    subTitol={""}
+                    key={i}
+                  />
+                ))}
+          </div>
         </div>
       </div>
     )

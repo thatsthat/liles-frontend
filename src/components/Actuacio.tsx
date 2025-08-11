@@ -77,9 +77,18 @@ function Actuacio() {
         <DetallsActuacio actuacio={actuacio} />
         <Resultats castells={actuacio.castells} colles={actuacio.colles2} />
         {loggedIn() && (
-          <Link to={"/fotoNova/" + actuacio.id} className={styles.button}>
-            Puja fotos
-          </Link>
+          <div className={styles.buttons}>
+            <Link to={"/fotoNova/" + actuacio.id} className={styles.button}>
+              Puja fotos
+            </Link>
+            <Link
+              to={"/editaActuacio/"}
+              state={actuacio}
+              className={styles.button}
+            >
+              Modifica dades
+            </Link>
+          </div>
         )}
         <Fotos fotos={actuacio.fotos} />
       </div>

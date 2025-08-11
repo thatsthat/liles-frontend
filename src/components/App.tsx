@@ -4,6 +4,7 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import NavBar from "./NavBar";
 import FotoNova from "./FotoNova";
+import EditaActuacio from "./EditaActuacio";
 
 import { BrowserRouter, Routes, Route } from "react-router";
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/temporada/:temporadaId?" element={<Galeria />} />
           <Route path="/actuacio/:actuacioId" element={<Actuacio />} />
           <Route path="/fotoNova/:actuacioId" element={<FotoNova />} />
+          <Route path="/editaActuacio" element={<EditaActuacio />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
         </Route>
