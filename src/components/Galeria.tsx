@@ -53,11 +53,17 @@ function Galeria() {
           <div className={styles.title}>
             {data.year ? "Temporada " + data.year : "Temporades"}
           </div>
-          {id && (
+          {id ? (
             <Link to={"/"} className={styles.backButton}>
               <Icon className={styles.icon} path={mdiUndo} size={1} />
               Tornar
             </Link>
+          ) : (
+            !loggedIn() && (
+              <Link to={"/signin"} className={styles.button}>
+                Log in
+              </Link>
+            )
           )}
         </div>
         <div className={styles.contentWrapper}>

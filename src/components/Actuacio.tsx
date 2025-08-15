@@ -66,7 +66,6 @@ function Actuacio() {
   };
 
   useEffect(() => {
-    console.log("actuacio useEffect");
     if (id) fetchActuacio(id);
   }, [id]);
 
