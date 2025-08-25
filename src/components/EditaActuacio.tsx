@@ -102,17 +102,19 @@ const EditaActuacio = () => {
               <label>Hora:</label>
               <input type="time" name="hora" defaultValue={temps.hora} />
               <label>Ciutat:</label>
-              <Select
-                defaultValue={selectedCity}
-                onChange={setSelectedCity}
-                options={ciutats}
-                isClearable={true}
-                theme={(theme) => ({
-                  ...theme,
-                  borderRadius: 0,
-                  colors: { ...theme.colors, ...colorScheme },
-                })}
-              />
+              <div className={styles.citySearch}>
+                <Select
+                  defaultValue={selectedCity}
+                  onChange={setSelectedCity}
+                  options={ciutats}
+                  isClearable={true}
+                  theme={(theme) => ({
+                    ...theme,
+                    borderRadius: 0,
+                    colors: { ...theme.colors, ...colorScheme },
+                  })}
+                />
+              </div>
               <label>Adreça:</label>
               <input
                 placeholder="..."

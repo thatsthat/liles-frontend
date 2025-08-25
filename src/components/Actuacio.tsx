@@ -77,7 +77,7 @@ function Actuacio() {
         <Resultats castells={actuacio.castells} colles={actuacio.colles2} />
         {loggedIn() && (
           <div className={styles.buttons}>
-            <Link to={"/fotoNova/" + actuacio.id} className={styles.button}>
+            <Link to={"/fotoNova"} state={actuacio} className={styles.button}>
               Puja fotos
             </Link>
             <Link

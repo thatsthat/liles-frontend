@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useOutletContext, useNavigate, useParams } from "react-router";
+import {
+  useOutletContext,
+  useNavigate,
+  useParams,
+  useLocation,
+} from "react-router";
 import styles from "../styles/FotoNova.module.css";
 import { loggedIn, userLogOut } from "../utils/userInfo";
 import { apiFormCall } from "../utils/apiFunctions";
 
 const FotoNova = () => {
   const [errors, setErrors] = useState({});
-  const actuacioId = useParams().actuacioId;
+  const actuacio = useLocation().state;
+  const castells = actuacio.castells.filter(
+    (castell) => castell.collaId === 17
+  );
   const navigate = useNavigate();
   const [reRender, trigger] = useOutletContext();
   const upload = async (event) => {
@@ -20,13 +28,13 @@ const FotoNova = () => {
     }
     const formData = new FormData(event.currentTarget);
     formData.append("collaId", 17);
-    formData.append("actuacioId", actuacioId);
+    formData.append("actuacioId", actuacio.id);
     const resp = await apiFormCall("/foto", formData);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
       setErrors({});
-      navigate("/actuacio/" + actuacioId);
+      navigate("/actuacio/" + actuacio.id);
     }
   };
   return (
@@ -35,7 +43,12 @@ const FotoNova = () => {
         <div className={styles.title}>Foto Nova</div>
       </div>
       <div className={styles.body}>
-        <form id="fileForm" onSubmit={upload} encType="multipart/form-data">
+        <form
+          id="fileForm"
+          className={styles.form}
+          onSubmit={upload}
+          encType="multipart/form-data"
+        >
           <input
             type="file"
             id="avatar"
@@ -43,6 +56,11 @@ const FotoNova = () => {
             onChange={() => setErrors({})}
             multiple
           />
+          <select id="castells" form="fileForm">
+            {castells.map((castell) => (
+              <option value={castell.id}>{castell.tipusCastell.nomCurt}</option>
+            ))}
+          </select>
           <button type="submit" className={styles.button}>
             Puja
           </button>
