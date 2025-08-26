@@ -17,8 +17,7 @@ import { loggedIn, userLogOut } from "../utils/userInfo";
 import apiCall from "../utils/apiFunctions";
 
 const colorScheme = {
-  primary: "black",
-  primary: "grey",
+  primary: "#719ECE",
   primary75: "black",
   primary50: "black",
   primary25: "black",

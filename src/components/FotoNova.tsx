@@ -56,11 +56,17 @@ const FotoNova = () => {
             onChange={() => setErrors({})}
             multiple
           />
-          <select id="castells" form="fileForm">
-            {castells.map((castell) => (
-              <option value={castell.id}>{castell.tipusCastell.nomCurt}</option>
-            ))}
-          </select>
+          <div className={styles.castellPicker}>
+            <label>Castell:</label>
+            <select id="castell" name="castellId" form="fileForm">
+              <option value="">Cap castell</option>
+              {castells.map((castell) => (
+                <option value={castell.id}>
+                  {castell.tipusCastell.nomCurt}
+                </option>
+              ))}
+            </select>
+          </div>
           <button type="submit" className={styles.button}>
             Puja
           </button>
