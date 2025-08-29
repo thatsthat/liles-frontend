@@ -1,0 +1,7 @@
+session_name: liles fullstack
+windows:
+  - window_name: Window 1
+    layout: even-horizontal
+    panes:
+      - npm run --prefix ~/dev/Odin/liles-frontend dev
+      - npm run --prefix ~/dev/Odin/liles-backend serverstart
