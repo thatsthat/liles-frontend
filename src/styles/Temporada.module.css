@@ -1,7 +1,9 @@
-.title {
-  font-size: min(6.5vw, 40px);
-  margin-right: 2rem;
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
 .header {
   display: flex;
   align-items: center;
@@ -11,10 +13,10 @@
   background-color: #242424;
   padding: 0.5rem 1rem;
 }
-.main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+
+.title {
+  font-size: min(6.5vw, 40px);
+  margin-right: 2rem;
 }
 
 .placeHolder {
@@ -28,7 +30,7 @@
   justify-content: space-between; */
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   padding: 1rem;
   width: 100%;
   justify-items: center;

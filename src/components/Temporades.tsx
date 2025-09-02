@@ -1,4 +1,4 @@
-import styles from "../styles/Galeria.module.css";
+import styles from "../styles/Temporades.module.css";
 import apiCall from "../utils/apiFunctions";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
@@ -31,7 +31,7 @@ type Temporada = { actuacions: Actuacio[]; year: number; id: number };
 
 type dataType = Actuacio[] | Temporada;
 
-function Galeria() {
+function Temporades() {
   const id = useParams().temporadaId;
   const [data, setData] = useState<dataType>();
   const imgPath = escut;
@@ -50,45 +50,19 @@ function Galeria() {
     data && (
       <div className={`${styles.main} ${loggedIn() ? styles.placeHolder : {}}`}>
         <div className={styles.header}>
-          <div className={styles.title}>
-            {data.year ? "Temporada " + data.year : "Temporades"}
-          </div>
-          {id ? (
-            <Link to={"/"} className={styles.backButton}>
-              <Icon className={styles.icon} path={mdiUndo} size={1} />
-              Tornar
+          <div className={styles.title}>Temporades</div>
+          {!loggedIn() && (
+            <Link to={"/signin"} className={styles.button}>
+              Log in
             </Link>
-          ) : (
-            !loggedIn() && (
-              <Link to={"/signin"} className={styles.button}>
-                Log in
-              </Link>
-            )
           )}
         </div>
         <div className={styles.contentWrapper}>
           <div className={styles.content}>
-            {id
-              ? data.actuacions &&
-                data.actuacions.map((actuacio: Actuacio, i: number) => (
-                  <TargetaGaleria
-                    imagePath={imgPath}
-                    url={"/actuacio/" + actuacio.id}
-                    titol={actuacio.nom}
-                    subTitol={""}
-                    key={i}
-                  />
-                ))
-              : Array.isArray(data) &&
-                data.map((temporada: Temporada, i: number) => (
-                  <TargetaGaleria
-                    imagePath={imgPath}
-                    url={"/temporada/" + temporada.id}
-                    titol={"Temporada " + temporada.year}
-                    subTitol={""}
-                    key={i}
-                  />
-                ))}
+            {Array.isArray(data) &&
+              data.map((temporada: Temporada, i: number) => (
+                <Link to={"/temporada/" + temporada.id}>{temporada.year}</Link>
+              ))}
           </div>
         </div>
       </div>
@@ -96,4 +70,4 @@ function Galeria() {
   );
 }
 
-export default Galeria;
+export default Temporades;
