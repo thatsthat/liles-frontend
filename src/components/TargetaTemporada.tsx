@@ -1,4 +1,4 @@
-import styles from "../styles/TargetaGaleria.module.css";
+import styles from "../styles/TargetaTemporada.module.css";
 import { Link } from "react-router";
 import Icon from "@mdi/react";
 import { mdiCalendar, mdiCity } from "@mdi/js";
@@ -12,7 +12,7 @@ type PropsType = {
   temporada: string;
 };
 
-function TargetaGaleria({
+function TargetaTemporada({
   url,
   titol = "",
   imagePath = "",
@@ -21,8 +21,8 @@ function TargetaGaleria({
   temporada = "",
 }: PropsType) {
   return (
-    <div className={styles.main}>
-      <Link to={url}>
+    <Link className={styles.link} to={url}>
+      <div className={styles.main}>
         {titol && <div className={styles.titol}>{titol}</div>}
         <div className={styles.detalls}>
           {data && (
@@ -42,9 +42,9 @@ function TargetaGaleria({
           </div>
         </div>
         {temporada && <div className={styles.temporada}>{temporada}</div>}
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }
 
-export default TargetaGaleria;
+export default TargetaTemporada;

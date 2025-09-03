@@ -96,6 +96,7 @@
   padding: 20px 30px;
   position: relative;
   border-radius: 6px;
+  user-select: none;
 }
 
 .backButton {
@@ -123,7 +124,7 @@
 }
 
 .content {
-  padding: 20px 30px;
+  padding: 10px 20px;
   background-color: white;
   position: relative;
   border-radius: 6px;

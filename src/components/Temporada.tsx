@@ -7,7 +7,7 @@ import Icon from "@mdi/react";
 import { mdiUndo } from "@mdi/js";
 import escut from "../assets/escut.png";
 
-import TargetaGaleria from "./TargetaGaleria";
+import TargetaTemporada from "./TargetaTemporada";
 
 type Castell = {
   nom: string;
@@ -62,7 +62,7 @@ function Temporada() {
           <div className={styles.content}>
             {data.actuacions &&
               data.actuacions.map((actuacio: Actuacio, i: number) => (
-                <TargetaGaleria
+                <TargetaTemporada
                   url={"/actuacio/" + actuacio.id}
                   titol={actuacio.nom}
                   ciutat={actuacio.ciutat.nom}

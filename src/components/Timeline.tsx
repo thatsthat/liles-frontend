@@ -7,7 +7,7 @@ import Icon from "@mdi/react";
 import { mdiUndo } from "@mdi/js";
 import escut from "../assets/escut.png";
 
-import TargetaGaleria from "./TargetaGaleria";
+import TargetaGaleria from "./TargetaTemporada";
 
 type Castell = {
   nom: string;
