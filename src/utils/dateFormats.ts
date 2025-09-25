@@ -21,6 +21,6 @@ export function dataHoraFrontToBack(data: string, hora: string) {
   return data + "T" + hora + ":00Z";
 }
 
-export function dataFrontToBack(data: string, hora: string) {
+export function dataFrontToBack(data: string) {
   return data + "T00:00:00Z";
 }

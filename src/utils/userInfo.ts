@@ -1,9 +1,11 @@
 export function loggedIn(): boolean {
-  return Date.now() < localStorage.getItem("currentTokenExpires") * 1000;
+  return (
+    Date.now() < (localStorage.getItem("currentTokenExpires") as any) * 1000
+  );
 }
 
 export function getUserId(): number {
-  return JSON.parse(localStorage.getItem("currentUser")).id;
+  return JSON.parse(localStorage.getItem("currentUser") as string).id;
 }
 
 export function userLogOut(): void {
