@@ -1,5 +1,4 @@
 import styles from "../styles/ResultatsColla.module.css";
-import { Link } from "react-router";
 
 type Castell = {
   nom: string;

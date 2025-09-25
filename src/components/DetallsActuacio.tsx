@@ -1,31 +1,10 @@
 import styles from "../styles/DetallsActuacio.module.css";
 import Icon from "@mdi/react";
 import { mdiCalendar, mdiMapMarker, mdiCity, mdiClock } from "@mdi/js";
-
-type Colla = {
-  nom: string;
-  id: number;
-};
-
-type Castell = {
-  nom: string;
-  resultat: string;
-  id: number;
-  actuacioId: number;
-  collaId: number;
-  tipusId: number;
-  tipusCastell: { nomCurt: string; nomLlarg: string };
-};
+import { type ActuacioT } from "./types";
 
 type PropsType = {
-  actuacio: {
-    data: string;
-    dataHora: Date | null;
-    ciutat: { nom: string };
-    lloc: string | null;
-    colles: Colla[];
-    castells: Castell[];
-  };
+  actuacio: ActuacioT;
 };
 
 function DetallsActuacio({ actuacio }: PropsType) {

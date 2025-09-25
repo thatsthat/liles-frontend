@@ -1,10 +1,15 @@
+export type Temps = {
+  data: string;
+  hora: string | undefined;
+};
+
 export function dataBackToFront(data: string) {
   const dataHoraSplit = data.split("T");
   // Return only date part of the string
   return dataHoraSplit[0];
 }
 
-export function dataHoraBackToFront(dataHora: string) {
+export function dataHoraBackToFront(dataHora: string): Temps {
   const dataHoraSplit = dataHora.split("T");
   const data = dataHoraSplit[0];
   const digitsHora = dataHoraSplit[1].split(":");

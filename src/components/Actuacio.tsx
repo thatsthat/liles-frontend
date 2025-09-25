@@ -1,65 +1,27 @@
 import styles from "../styles/Actuacio.module.css";
 import { useState, useEffect } from "react";
 import apiCall from "../utils/apiFunctions";
-import { useParams, useNavigate, useOutletContext, Link } from "react-router";
+import { useParams, Link } from "react-router";
 import DetallsActuacio from "./DetallsActuacio";
 import Resultats from "./Resultats";
 import Header from "./Header";
 import Fotos from "./Fotos";
-import { loggedIn, userLogOut } from "../utils/userInfo";
-
-type Foto = {
-  url: string;
-};
-
-type Colla = {
-  nom: string;
-  id: number;
-};
-
-type TipusCastell = { nomCurt: string; nomLlarg: string };
-
-type Castell = {
-  nom: string;
-  resultat: string;
-  id: number;
-  actuacioId: number;
-  collaId: number;
-  tipusId: number;
-  tipusCastell: TipusCastell;
-};
-
-type Ciutat = {
-  nom: string;
-  coords: null;
-  id: number;
-};
-
-type Actuacio = {
-  id: number;
-  data: string;
-  nom: string;
-  dataHora: Date | null;
-  ciutat: Ciutat;
-  lloc: string | null;
-  castells: Castell[];
-  temporadaId: number;
-  colles: Colla[];
-  colles2: Colla[];
-  fotos: Foto[];
-};
+import { type ActuacioT, type Colla } from "./types";
+import { loggedIn } from "../utils/userInfo";
 
 function Actuacio() {
-  const id = useParams().actuacioId;
-  const [actuacio, setActuacio] = useState<Actuacio>();
-  const [reRender, trigger] = useOutletContext();
+  const id: string | undefined = useParams().actuacioId;
+  const [actuacio, setActuacio] = useState<ActuacioT>();
+  //const [reRender, trigger] = useOutletContext();
 
   const fetchActuacio = async (id: string) => {
-    let dadesActuacio: Actuacio = await apiCall("get", "/actuacio/" + id);
+    let dadesActuacio: ActuacioT = await apiCall("get", "/actuacio/" + id);
     // Posa Cornellà primer a l'array de colles
-    const cornella = dadesActuacio.colles.filter((colla) => colla.id === 17);
-    const altresColles = dadesActuacio.colles.filter(
-      (colla) => colla.id !== 17
+    const cornella: Array<Colla> = dadesActuacio.colles.filter(
+      (colla: Colla) => colla.id === 17
+    );
+    const altresColles: Array<Colla> = dadesActuacio.colles.filter(
+      (colla: Colla) => colla.id !== 17
     );
     dadesActuacio.colles2 = [...cornella, ...altresColles];
     setActuacio(dadesActuacio);

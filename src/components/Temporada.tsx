@@ -5,39 +5,16 @@ import { useParams, Link } from "react-router";
 import { loggedIn } from "../utils/userInfo";
 import Icon from "@mdi/react";
 import { mdiUndo } from "@mdi/js";
-import escut from "../assets/escut.png";
+import { type ActuacioT, type TemporadaT } from "./types";
 
 import TargetaTemporada from "./TargetaTemporada";
 
-type Castell = {
-  nom: string;
-  resultat: string;
-  id: number;
-  actuacioId: number;
-};
-
-type Actuacio = {
-  id: number;
-  data: string;
-  nom: string;
-  dataHora: Date | null;
-  ciutat: string;
-  ciutatLloc: string | null;
-  castells: Castell[];
-  temporadaId: number;
-};
-
-type Temporada = { actuacions: Actuacio[]; year: number; id: number };
-
-type dataType = Actuacio[] | Temporada;
-
 function Temporada() {
   const id = useParams().temporadaId;
-  const [data, setData] = useState<dataType>();
-  const imgPath = escut;
+  const [data, setData] = useState<TemporadaT>();
 
   const fetchData = async (id: string) => {
-    const dades = await apiCall("get", "/temporada/" + id);
+    const dades: TemporadaT = await apiCall("get", "/temporada/" + id);
     setData(dades);
   };
 
@@ -61,7 +38,7 @@ function Temporada() {
         <div className={styles.contentWrapper}>
           <div className={styles.content}>
             {data.actuacions &&
-              data.actuacions.map((actuacio: Actuacio, i: number) => (
+              data.actuacions.map((actuacio: ActuacioT, i: number) => (
                 <TargetaTemporada
                   url={"/actuacio/" + actuacio.id}
                   titol={actuacio.nom}

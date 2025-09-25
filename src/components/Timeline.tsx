@@ -3,38 +3,11 @@ import apiCall from "../utils/apiFunctions";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
 import { loggedIn } from "../utils/userInfo";
-import Icon from "@mdi/react";
-import { mdiUndo } from "@mdi/js";
-import escut from "../assets/escut.png";
-
-import TargetaGaleria from "./TargetaTemporada";
-
-type Castell = {
-  nom: string;
-  resultat: string;
-  id: number;
-  actuacioId: number;
-};
-
-type Actuacio = {
-  id: number;
-  data: string;
-  nom: string;
-  dataHora: Date | null;
-  ciutat: string;
-  ciutatLloc: string | null;
-  castells: Castell[];
-  temporadaId: number;
-};
-
-type Temporada = { actuacions: Actuacio[]; year: number; id: number };
-
-type dataType = Actuacio[] | Temporada;
+import { type TemporadaT } from "./types";
 
 function Timeline() {
   const id = useParams().temporadaId;
-  const [data, setData] = useState<dataType>();
-  const imgPath = escut;
+  const [data, setData] = useState<TemporadaT>();
 
   const fetchData = async (id: string) => {
     const dades = await apiCall("get", "/temporada/" + id);
@@ -60,7 +33,7 @@ function Timeline() {
         <div className={styles.contentWrapper}>
           <div className={styles.timeline}>
             {Array.isArray(data) &&
-              data.map((temporada: Temporada, i: number) => (
+              data.map((temporada: TemporadaT, i: number) => (
                 <div
                   className={`${styles.container} ${
                     i % 2 == 0 ? styles.left : styles.right

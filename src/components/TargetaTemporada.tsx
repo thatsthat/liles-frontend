@@ -6,19 +6,15 @@ import { mdiCalendar, mdiCity } from "@mdi/js";
 type PropsType = {
   url: string;
   titol: string;
-  imagePath: string;
   data: string;
   ciutat: string;
-  temporada: string;
 };
 
 function TargetaTemporada({
   url,
   titol = "",
-  imagePath = "",
   data = "",
   ciutat = "",
-  temporada = "",
 }: PropsType) {
   return (
     <Link className={styles.link} to={url}>
@@ -37,11 +33,7 @@ function TargetaTemporada({
               </div>
             </div>
           )}
-          <div className={styles.imatge}>
-            {imagePath && <img src={imagePath} />}
-          </div>
         </div>
-        {temporada && <div className={styles.temporada}>{temporada}</div>}
       </div>
     </Link>
   );

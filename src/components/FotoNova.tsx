@@ -1,39 +1,41 @@
-import React, { useState, useEffect } from "react";
-import {
-  useOutletContext,
-  useNavigate,
-  useParams,
-  useLocation,
-} from "react-router";
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router";
 import styles from "../styles/FotoNova.module.css";
-import { loggedIn, userLogOut } from "../utils/userInfo";
-import { apiFormCall } from "../utils/apiFunctions";
+import { type ActuacioT } from "./types";
+
+type FileErrors = {
+  file: string;
+};
 
 const FotoNova = () => {
-  const [errors, setErrors] = useState({});
-  const actuacio = useLocation().state;
+  const [errors, setErrors] = useState<FileErrors>({ file: "" });
+  const actuacio: ActuacioT = useLocation().state;
   const castells = actuacio.castells.filter(
     (castell) => castell.collaId === 17
   );
   const navigate = useNavigate();
-  const [reRender, trigger] = useOutletContext();
-  const upload = async (event) => {
+  //const [reRender, trigger] = useOutletContext();
+  const upload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    let validationErrors = {};
-    const fileNode = document.querySelector("input[type='file']");
-    if (fileNode.files.length == 0) {
+    let validationErrors: FileErrors = { file: "" };
+    const fileNode: HTMLInputElement | null =
+      document.querySelector("input[type='file']");
+    if (fileNode!.files!.length == 0) {
       validationErrors.file = "No hi ha cap foto seleccionada";
       setErrors(validationErrors);
       return;
     }
-    const formData = new FormData(event.currentTarget);
-    formData.append("collaId", 17);
-    formData.append("actuacioId", actuacio.id);
-    const resp = await apiFormCall("/foto", formData);
-    if (Object.keys(validationErrors).length > 0) {
+    if (event.currentTarget instanceof HTMLFormElement) {
+      const formData = new FormData(event.currentTarget);
+      formData.append("collaId", "17");
+      formData.append("actuacioId", actuacio.id.toString());
+      console.log(formData);
+      //const resp = await apiFormCall("/foto", formData);
+    }
+    if (validationErrors.file.length > 0) {
       setErrors(validationErrors);
     } else {
-      setErrors({});
+      setErrors({ file: "" });
       navigate("/actuacio/" + actuacio.id);
     }
   };
@@ -53,7 +55,7 @@ const FotoNova = () => {
             type="file"
             id="avatar"
             name="avatar"
-            onChange={() => setErrors({})}
+            onChange={() => setErrors({ file: "" })}
             multiple
           />
           <div className={styles.castellPicker}>
@@ -70,7 +72,9 @@ const FotoNova = () => {
           <button type="submit" className={styles.button}>
             Puja
           </button>
-          {errors.file && <div className={styles.error}>{errors.file}</div>}
+          {errors.file.length && (
+            <div className={styles.error}>{errors.file}</div>
+          )}
         </form>
       </div>
     </div>

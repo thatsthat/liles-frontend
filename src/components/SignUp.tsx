@@ -1,20 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import styles from "../styles/SignUp.module.css";
-
-type SignUpForm = {
-  name: string;
-  email: string;
-  password: string;
-  get: (arg: string) => string;
-};
 
 const SignUp = () => {
   const [errorMsg, setErrorMsg] = useState("");
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (data: SignUpForm) => {
+  const handleSubmit = async (data: FormData) => {
     const formData = {
       email: data.get("email"),
       name: data.get("name"),

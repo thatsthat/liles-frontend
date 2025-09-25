@@ -1,7 +1,7 @@
 export default async function apiCall(
   callVerb: string,
   URLparams: string,
-  bodyObject = null
+  bodyObject: null | string = null
 ) {
   const url = import.meta.env.VITE_API_URL + URLparams;
   const token = localStorage.getItem("currentToken");

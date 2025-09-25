@@ -2,19 +2,14 @@ import {
   dataBackToFront,
   dataHoraBackToFront,
   dataHoraFrontToBack,
+  type Temps,
 } from "../utils/dateFormats";
-import React, { useState, useEffect } from "react";
-import {
-  useOutletContext,
-  useNavigate,
-  useParams,
-  useLocation,
-  Link,
-} from "react-router";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation, Link } from "react-router";
 import Select from "react-select";
 import styles from "../styles/EditaActuacio.module.css";
-import { loggedIn, userLogOut } from "../utils/userInfo";
 import apiCall from "../utils/apiFunctions";
+import { type ActuacioT } from "./types";
 
 const colorScheme = {
   primary: "#719ECE",
@@ -36,43 +31,60 @@ const colorScheme = {
   neutral90: "black",
 };
 
+type CityFrontend = {
+  value: number;
+  label: string;
+};
+
+type CityBackend = {
+  id: number;
+  nom: string;
+};
+
 const EditaActuacio = () => {
   const navigate = useNavigate();
-  const dades = useLocation().state;
+  const actuacio: ActuacioT = useLocation().state;
   //console.log(dades);
-  const [errors, setErrors] = useState({});
-  const [ciutats, setCiutats] = useState(null);
-  const [selectedCity, setSelectedCity] = useState({
-    value: dades.ciutat.id,
-    label: dades.ciutat.nom,
+  //const [errors, setErrors] = useState({});
+  const [ciutats, setCiutats] = useState<CityFrontend[]>([]);
+  const [selectedCity, setSelectedCity] = useState<CityFrontend>({
+    value: actuacio.ciutat.id,
+    label: actuacio.ciutat.nom,
   });
-  if (dades.dataHora) {
-    var temps = dataHoraBackToFront(dades.dataHora);
+  if (actuacio.dataHora) {
+    var temps: Temps = dataHoraBackToFront(actuacio.dataHora);
   } else {
-    const data = dataBackToFront(dades.data);
-    var temps = { data: data, hora: undefined };
+    const data = dataBackToFront(actuacio.data);
+    var temps: Temps = {
+      data: data,
+      hora: undefined,
+    };
   }
-  const upload = async (formData) => {
+  const upload = async (formData: FormData) => {
     console.log(JSON.stringify(Object.fromEntries(formData.entries())));
 
-    formData.set("ciutatId", selectedCity.value);
-    if (formData.get("hora").length > 0)
+    formData.set("ciutatId", selectedCity.value.toString());
+    if (formData.get("hora"))
       formData.set(
         "hora",
-        dataHoraFrontToBack(formData.get("data"), formData.get("hora"))
+        dataHoraFrontToBack(
+          formData.get("data")!.toString(),
+          formData.get("hora")!.toString()
+        )
       );
 
     const resp = await apiCall(
       "PATCH",
-      "/actuacio/" + dades.id,
+      "/actuacio/" + actuacio.id,
       JSON.stringify(Object.fromEntries(formData.entries()))
     );
     console.log(JSON.stringify(Object.fromEntries(formData.entries())));
-    navigate("/actuacio/" + dades.id);
+    navigate("/actuacio/" + actuacio.id);
+    console.log(resp);
   };
 
   const fetchCities = async () => {
-    const cities = await apiCall("get", "/ciutat");
+    const cities: CityBackend[] = await apiCall("get", "/ciutat");
     const cities2 = cities.map((city) => {
       return { value: city.id, label: city.nom };
     });
@@ -94,7 +106,7 @@ const EditaActuacio = () => {
                 placeholder="Títol"
                 type="text"
                 name="nom"
-                defaultValue={dades.nom}
+                defaultValue={actuacio.nom}
               />
               <label>Data:</label>
               <input type="date" name="data" defaultValue={temps.data} />
@@ -104,7 +116,7 @@ const EditaActuacio = () => {
               <div className={styles.citySearch}>
                 <Select
                   defaultValue={selectedCity}
-                  onChange={setSelectedCity}
+                  onChange={setSelectedCity as any}
                   options={ciutats}
                   isClearable={true}
                   theme={(theme) => ({
@@ -119,13 +131,13 @@ const EditaActuacio = () => {
                 placeholder="..."
                 type="text"
                 name="lloc"
-                defaultValue={dades.lloc}
+                defaultValue={actuacio.lloc!}
               />
               <div className={styles.buttonRow}>
                 <button type="submit" className={styles.button}>
                   Desar
                 </button>
-                <Link to={"/actuacio/" + dades.id} className={styles.button}>
+                <Link to={"/actuacio/" + actuacio.id} className={styles.button}>
                   Cancel·lar
                 </Link>
               </div>

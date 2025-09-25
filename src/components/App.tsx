@@ -1,4 +1,3 @@
-import Temporades from "./Temporades";
 import Timeline from "./Timeline";
 import Temporada from "./Temporada";
 import Actuacio from "./Actuacio";

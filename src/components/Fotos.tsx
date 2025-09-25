@@ -1,5 +1,4 @@
 import styles from "../styles/Fotos.module.css";
-import { Link } from "react-router";
 
 type Foto = {
   url: string;

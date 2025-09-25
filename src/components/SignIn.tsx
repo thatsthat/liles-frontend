@@ -1,13 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router";
+import { useState } from "react";
+import { Link } from "react-router";
 import { jwtDecode } from "jwt-decode";
 import styles from "../styles/SignIn.module.css";
 
+type Token = {
+  user: {
+    id: number;
+    correu: string;
+    contrassenya: string;
+    nom: "string";
+  };
+  iat: number;
+  exp: number;
+};
+
 const SignIn = () => {
   const [errorMsg, setErrorMsg] = useState("");
-  const navigate = useNavigate();
 
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (data: FormData) => {
     const formData = {
       email: data.get("email"),
       password: data.get("password"),
@@ -26,7 +36,7 @@ const SignIn = () => {
       setErrorMsg(tokenPayload.error);
     } else {
       localStorage.setItem("currentToken", tokenPayload.token);
-      const tokenData = jwtDecode(JSON.stringify(tokenPayload));
+      const tokenData: Token = jwtDecode(JSON.stringify(tokenPayload));
       localStorage.setItem(
         "currentTokenExpires",
         JSON.stringify(tokenData.exp)
