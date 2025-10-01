@@ -18,7 +18,7 @@ export default async function apiCall(
   return responseData;
 }
 
-export async function apiFormCall(URLparams: string, bodyObject = null) {
+export async function apiFormCall(URLparams: string, bodyObject: FormData) {
   const url = import.meta.env.VITE_API_URL + URLparams;
   const token = localStorage.getItem("currentToken");
   const resp = await fetch(url, {

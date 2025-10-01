@@ -1,5 +1,6 @@
 export type Foto = {
   url: string;
+  nom: string;
 };
 
 export type Colla = {

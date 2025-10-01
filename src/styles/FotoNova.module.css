@@ -76,3 +76,7 @@ input[type="file"] {
   gap: 0.2rem;
   font-size: large;
 }
+
+.counter {
+  font-size: large;
+}
