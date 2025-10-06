@@ -8,7 +8,7 @@ Web to visualize all events and results of the Castellers group where I belong.
 
 ## Backend
 
-The source code for the backend can be found at [https://github.com/thatsthat/liles-backend]([https://github.com/erynder-z/tomodachi-link-frontend](https://github.com/thatsthat/liles-backend)).
+The source code for the backend can be found at [https://github.com/thatsthat/liles-backend](https://github.com/thatsthat/liles-backend)).
 
 ## Features
 
