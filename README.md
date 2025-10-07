@@ -4,7 +4,7 @@ Web to visualize all past events and results of the Castellers group where I bel
 
 ## Live
 
-[https://liles.pages.dev/](https://liles.pages.dev)
+[https://liles.pages.dev](https://liles.pages.dev)
 
 ## Backend
 
