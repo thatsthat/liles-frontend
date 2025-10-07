@@ -1,6 +1,6 @@
 # Castellers Web
 
-Web to visualize all events and results of the Castellers group where I belong.
+Web to visualize all past events and results of the Castellers group where I belong.
 
 ## Live
 
