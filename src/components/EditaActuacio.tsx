@@ -10,6 +10,7 @@ import Select from "react-select";
 import styles from "../styles/EditaActuacio.module.css";
 import apiCall from "../utils/apiFunctions";
 import { type ActuacioT } from "./types";
+import Skeleton from "react-loading-skeleton";
 
 const colorScheme = {
   primary: "#719ECE",
@@ -47,6 +48,7 @@ const EditaActuacio = () => {
   //console.log(dades);
   //const [errors, setErrors] = useState({});
   const [ciutats, setCiutats] = useState<CityFrontend[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCity, setSelectedCity] = useState<CityFrontend>({
     value: actuacio.ciutat.id,
     label: actuacio.ciutat.nom,
@@ -83,16 +85,16 @@ const EditaActuacio = () => {
     console.log(resp);
   };
 
-  const fetchCities = async () => {
-    const cities: CityBackend[] = await apiCall("get", "/ciutat");
-    const cities2 = cities.map((city) => {
-      return { value: city.id, label: city.nom };
-    });
-    setCiutats(cities2);
-  };
-
   useEffect(() => {
-    fetchCities();
+    apiCall("get", "/ciutat")
+      .then((cities: CityBackend[]) => {
+        const cities2 = cities.map((city) => {
+          return { value: city.id, label: city.nom };
+        });
+        setCiutats(cities2);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -114,17 +116,21 @@ const EditaActuacio = () => {
               <input type="time" name="hora" defaultValue={temps.hora} />
               <label>Ciutat:</label>
               <div className={styles.citySearch}>
-                <Select
-                  defaultValue={selectedCity}
-                  onChange={setSelectedCity as any}
-                  options={ciutats}
-                  isClearable={true}
-                  theme={(theme) => ({
-                    ...theme,
-                    borderRadius: 0,
-                    colors: { ...theme.colors, ...colorScheme },
-                  })}
-                />
+                {loading ? (
+                  <Skeleton height={38} />
+                ) : (
+                  <Select
+                    defaultValue={selectedCity}
+                    onChange={setSelectedCity as any}
+                    options={ciutats}
+                    isClearable={true}
+                    theme={(theme) => ({
+                      ...theme,
+                      borderRadius: 0,
+                      colors: { ...theme.colors, ...colorScheme },
+                    })}
+                  />
+                )}
               </div>
               <label>Adreça:</label>
               <input

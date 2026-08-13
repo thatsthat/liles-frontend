@@ -7,27 +7,32 @@ import Icon from "@mdi/react";
 import { mdiUndo } from "@mdi/js";
 import { type ActuacioT, type TemporadaT } from "./types";
 
-import TargetaTemporada from "./TargetaTemporada";
+import TargetaTemporada, {
+  TargetaTemporadaSkeleton,
+} from "./TargetaTemporada";
+import Skeleton from "react-loading-skeleton";
+
+const SKELETON_COUNT = 6;
 
 function Temporada() {
   const id = useParams().temporadaId;
   const [data, setData] = useState<TemporadaT>();
-
-  const fetchData = async (id: string) => {
-    const dades: TemporadaT = await apiCall("get", "/temporada/" + id);
-    setData(dades);
-  };
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (id) fetchData(id);
-    else fetchData("");
+    apiCall("get", "/temporada/" + (id ?? ""))
+      .then((dades: TemporadaT) => setData(dades))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
   }, [id]);
 
   return (
-    data && (
+    (loading || data) && (
       <div className={`${styles.main} ${loggedIn() ? styles.placeHolder : {}}`}>
         <div className={styles.header}>
-          <div className={styles.title}>{"Temporada " + data.year}</div>
+          <div className={styles.title}>
+            {loading ? <Skeleton width={150} /> : "Temporada " + data!.year}
+          </div>
           {
             <Link to={"/"} className={styles.backButton}>
               <Icon className={styles.icon} path={mdiUndo} size={1} />
@@ -37,16 +42,20 @@ function Temporada() {
         </div>
         <div className={styles.contentWrapper}>
           <div className={styles.content}>
-            {data.actuacions &&
-              data.actuacions.map((actuacio: ActuacioT, i: number) => (
-                <TargetaTemporada
-                  url={"/actuacio/" + actuacio.id}
-                  titol={actuacio.nom}
-                  ciutat={actuacio.ciutat.nom}
-                  data={actuacio.data}
-                  key={i}
-                />
-              ))}
+            {loading
+              ? Array.from({ length: SKELETON_COUNT }).map((_, i) => (
+                  <TargetaTemporadaSkeleton key={i} />
+                ))
+              : data!.actuacions &&
+                data!.actuacions.map((actuacio: ActuacioT, i: number) => (
+                  <TargetaTemporada
+                    url={"/actuacio/" + actuacio.id}
+                    titol={actuacio.nom}
+                    ciutat={actuacio.ciutat.nom}
+                    data={actuacio.data}
+                    key={i}
+                  />
+                ))}
           </div>
         </div>
       </div>

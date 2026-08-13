@@ -1,5 +1,7 @@
 import styles from "../styles/Resultats.module.css";
-import ResultatsColla from "./ResultatsColla";
+import ResultatsColla, { ResultatsCollaSkeleton } from "./ResultatsColla";
+
+const SKELETON_COLLES_COUNT = 4;
 
 type Colla = {
   nom: string;
@@ -32,6 +34,18 @@ function Resultats({ colles, castells }: PropsType) {
               (castell) => castell.collaId === colla.id
             )}
           />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function ResultatsSkeleton() {
+  return (
+    <div className={styles.main}>
+      {Array.from({ length: SKELETON_COLLES_COUNT }).map((_, i) => (
+        <div className={styles.resultatsColla} key={i}>
+          <ResultatsCollaSkeleton />
         </div>
       ))}
     </div>

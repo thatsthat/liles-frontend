@@ -2,6 +2,29 @@ import styles from "../styles/TargetaTemporada.module.css";
 import { Link } from "react-router";
 import Icon from "@mdi/react";
 import { mdiCalendar, mdiCity } from "@mdi/js";
+import Skeleton from "react-loading-skeleton";
+
+export function TargetaTemporadaSkeleton() {
+  return (
+    <div className={styles.main}>
+      <div className={styles.titol}>
+        <Skeleton width="70%" />
+      </div>
+      <div className={styles.detalls}>
+        <div className={styles.detallsText}>
+          <div>
+            <Icon className={styles.icon} path={mdiCalendar} size={1} />
+            <Skeleton width={90} />
+          </div>
+          <div>
+            <Icon className={styles.icon} path={mdiCity} size={1} />
+            <Skeleton width={110} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 type PropsType = {
   url: string;

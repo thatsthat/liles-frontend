@@ -9,9 +9,9 @@ export default async function apiCall(
     method: callVerb,
     // prettier-ignore
     headers: {
-        "Authorization": "Bearer " + token,
-        "Content-Type": "application/json"
-      },
+      "Authorization": "Bearer " + token,
+      "Content-Type": "application/json"
+    },
     body: bodyObject,
   });
   const responseData = await resp.json();
@@ -25,8 +25,8 @@ export async function apiFormCall(URLparams: string, bodyObject: FormData) {
     method: "post",
     // prettier-ignore
     headers: {
-        "Authorization": "Bearer " + token,
-      },
+      "Authorization": "Bearer " + token,
+    },
     body: bodyObject,
   });
   const responseData = await resp.json();

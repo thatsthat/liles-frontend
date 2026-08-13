@@ -4,23 +4,24 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
 import { loggedIn } from "../utils/userInfo";
 import { type TemporadaT } from "./types";
+import Skeleton from "react-loading-skeleton";
+
+const SKELETON_COUNT = 6;
 
 function Temporades() {
   const id = useParams().temporadaId;
   const [data, setData] = useState<TemporadaT>();
-
-  const fetchData = async (id: string) => {
-    const dades = await apiCall("get", "/temporada/" + id);
-    setData(dades);
-  };
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (id) fetchData(id);
-    else fetchData("");
+    apiCall("get", "/temporada/" + (id ?? ""))
+      .then((dades: TemporadaT) => setData(dades))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
   }, [id]);
 
   return (
-    data && (
+    (loading || data) && (
       <div className={`${styles.main} ${loggedIn() ? styles.placeHolder : {}}`}>
         <div className={styles.header}>
           <div className={styles.title}>Temporades</div>
@@ -32,10 +33,16 @@ function Temporades() {
         </div>
         <div className={styles.contentWrapper}>
           <div className={styles.content}>
-            {Array.isArray(data) &&
-              data.map((temporada: TemporadaT) => (
-                <Link to={"/temporada/" + temporada.id}>{temporada.year}</Link>
-              ))}
+            {loading
+              ? Array.from({ length: SKELETON_COUNT }).map((_, i) => (
+                  <Skeleton key={i} width={60} />
+                ))
+              : Array.isArray(data) &&
+                data.map((temporada: TemporadaT) => (
+                  <Link to={"/temporada/" + temporada.id}>
+                    {temporada.year}
+                  </Link>
+                ))}
           </div>
         </div>
       </div>
